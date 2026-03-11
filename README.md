@@ -1,57 +1,40 @@
-# Sample Hardhat 3 Beta Project (`node:test` and `viem`)
+# Tokenizer - School 42 Project
 
-This project showcases a Hardhat 3 Beta project using the native Node.js test runner (`node:test`) and the `viem` library for Ethereum interactions.
+## Overview
+This project involves the creation, deployment, and verification of a custom BEP-20 smart contract. The token is deployed on the **BNB Smart Chain Testnet** and includes standard security features such as burning mechanisms and pausing capabilities.
 
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+## Smart Contract Details
+- **Token Name:** Ebaillot42
+- **Token Symbol:** EB42
+- **Decimals:** 18
+- **Initial Supply:** 42,000,000 EB42
+- **Network:** BNB Smart Chain Testnet (Chain ID: 97)
+- **Contract Address:** `0x076abcc0d679529d24f08b65a26f5d4bca8c904d`
+- **Verified Explorer Link:** [BscScan Contract Page](https://testnet.bscscan.com/address/0x076abcc0d679529d24f08b65a26f5d4bca8c904d#writeContract)
 
-## Project Overview
+## Choices & Reasoning
+As requested by the subject, here are the technical choices made for this project and the reasons behind them:
 
-This example project includes:
+1. **Network (BNB Smart Chain Testnet):** * *Reason:* BNB Chain offers high speed and low transaction fees. The testnet was chosen to ensure safe deployment and testing without spending real money, strictly following the project guidelines.
+2. **Framework (Hardhat v3):** * *Reason:* Hardhat is the current industry standard for EVM development. It provides excellent debugging tools, native TypeScript support, and built-in plugins for contract verification (`hardhat-verify`).
+3. **Libraries (OpenZeppelin):**
+   * *Reason:* Writing cryptographic security features from scratch is prone to errors. OpenZeppelin provides community-audited, battle-tested standard implementations for ERC20/BEP20, Ownable, Pausable, and Burnable features, ensuring the highest level of security.
+4. **Token Name (Ebaillot42):**
+   * *Reason:* Meets the mandatory project constraint of including "42" in the token name.
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using [`node:test`](nodejs.org/api/test.html), the new Node.js native test runner, and [`viem`](https://viem.sh/).
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+## Features Implemented
+- **BEP-20 Standard:** Fully compliant with the standard token interface.
+- **Ownable & Pausable:** The contract creator (owner) can freeze all token transfers in case of an emergency (`pause` and `unpause`), protecting users from vulnerabilities.
+- **Burnable:** Token holders can permanently destroy a portion of their tokens (`burn`), decreasing the total circulating supply.
 
-## Usage
+## Repository Structure
+- `/code`: Contains the `Ebaillot42.sol` smart contract source code.
+- `/deployment`: Contains the Hardhat deployment scripts and configuration files.
+- `/documentation`: Contains additional information about the token's purpose.
+- `README.md`: This file, explaining the project setup and technical choices.
 
-### Running Tests
-
-To run all the tests in the project, execute the following command:
-
-```shell
-npx hardhat test
-```
-
-You can also selectively run the Solidity or `node:test` tests:
-
-```shell
-npx hardhat test solidity
-npx hardhat test nodejs
-```
-
-### Make a deployment to Sepolia
-
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
-
-To run the deployment to a local chain:
-
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
-```
-
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
-
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
-
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
-
-```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
-```
-
-After setting the variable, you can run the deployment with the Sepolia network:
-
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
-```
+## How to interact with the Token
+Since the contract is fully verified, you can interact with it directly through the block explorer:
+1. Go to the [BscScan Contract Page](https://testnet.bscscan.com/address/0x076abcc0d679529d24f08b65a26f5d4bca8c904d#writeContract).
+2. Click on **Connect to Web3** and connect your MetaMask wallet (ensure you are on the BNB Smart Chain Testnet).
+3. Use the `Write Contract` tab to execute features like `transfer`, `burn`, and `pause`.
