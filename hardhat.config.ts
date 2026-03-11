@@ -1,5 +1,6 @@
 import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
-import { defineConfig } from "hardhat/config";
+import { defineConfig, configVariable } from "hardhat/config";
+
 
 export default defineConfig({
   plugins: [hardhatToolboxViemPlugin],
@@ -30,5 +31,11 @@ export default defineConfig({
       type: "edr-simulated",
       chainType: "l1",
     },
-  },
+    bscTestnet: {
+      type: "http",
+      url: "https://bsc-testnet.blockpi.network/v1/rpc/public",
+      chainId: 97,
+      accounts: [configVariable("PRIVATE_KEY")] 
+    }
+  }, 
 });
