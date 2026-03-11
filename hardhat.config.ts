@@ -1,7 +1,6 @@
 import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
 import { defineConfig, configVariable } from "hardhat/config";
 
-
 export default defineConfig({
   plugins: [hardhatToolboxViemPlugin],
   solidity: {
@@ -33,9 +32,14 @@ export default defineConfig({
     },
     bscTestnet: {
       type: "http",
-      url: "https://bsc-testnet.blockpi.network/v1/rpc/public",
+      url: "https://data-seed-prebsc-1-s1.bnbchain.org:8545", 
       chainId: 97,
       accounts: [configVariable("PRIVATE_KEY")] 
     }
-  }, 
+  },
+  verify: {
+    etherscan: {
+      apiKey: configVariable("BSCSCAN_API_KEY")
+    }
+  }
 });
